@@ -26,14 +26,13 @@ function submitIssue(e) {
   e.preventDefault();
 }
 
-// Close Issue
+// Close Issue (Fixed)
 const closeIssue = (id) => {
   const issues = JSON.parse(localStorage.getItem("issues"));
-  const currentIssue = issues.find((issue) => issue.id);
+  const currentIssue = issues.find((issue) => issue.id === id);
   currentIssue.status = "Closed";
   localStorage.setItem("issues", JSON.stringify(issues));
   fetchIssues();
-  console.log(issues);
 };
 
 // Delete Issue
@@ -63,18 +62,20 @@ const fetchIssues = () => {
   }
 };
 
-// Count Issues
-// const x = localStorage.issues;
+// Count Total Issues (Fixed)
 const count = JSON.parse(localStorage.issues);
-const newCount = count.length;
-document.getElementById("number-issue").innerText = newCount;
+const totalCount = count.length;
+document.getElementById("number-issue").innerText = totalCount;
 
-// console.log(count);
+// Count Closed Issues (Fixed)
+const closedCount = count.length;
+document.getElementById("number-issue").innerText = totalCount;
 
-// let counter = 0;
-// for (let i = 0; i < x.length; i++) {
-//   // if (x[i].status === "Open")
-//   counter++;
-// }
+let closedCounter = 0;
+for (let i = 0; i < count.length; i++) {
+  if (count[i].status === "Closed") closedCounter++;
+}
 
-// console.log(counter);
+console.log(closedCounter);
+
+console.log(count);
