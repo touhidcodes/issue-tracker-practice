@@ -26,17 +26,20 @@ function submitIssue(e) {
   e.preventDefault();
 }
 
+// Close Issue
 const closeIssue = (id) => {
   const issues = JSON.parse(localStorage.getItem("issues"));
-  const currentIssue = issues.find((issue) => issue.id === id);
+  const currentIssue = issues.find((issue) => issue.id);
   currentIssue.status = "Closed";
   localStorage.setItem("issues", JSON.stringify(issues));
   fetchIssues();
+  console.log(issues);
 };
 
+// Delete Issue
 const deleteIssue = (id) => {
   const issues = JSON.parse(localStorage.getItem("issues"));
-  const remainingIssues = issues.filter(issue.id !== id);
+  const remainingIssues = issues.filter(issues.id !== id);
   localStorage.setItem("issues", JSON.stringify(remainingIssues));
 };
 
@@ -54,7 +57,7 @@ const fetchIssues = () => {
                               <h3> ${description} </h3>
                               <p><span class="glyphicon glyphicon-time"></span> ${severity}</p>
                               <p><span class="glyphicon glyphicon-user"></span> ${assignedTo}</p>
-                              <a href="#" onclick="setStatusClosed(${id})" class="btn btn-warning">Close</a>
+                              <a href="#" onclick="closeIssue(${id})" class="btn btn-warning">Close</a>
                               <a href="#" onclick="deleteIssue(${id})" class="btn btn-danger">Delete</a>
                               </div>`;
   }
@@ -65,7 +68,8 @@ const fetchIssues = () => {
 const count = JSON.parse(localStorage.issues);
 const newCount = count.length;
 document.getElementById("number-issue").innerText = newCount;
-// console.log(count.length);
+
+// console.log(count);
 
 // let counter = 0;
 // for (let i = 0; i < x.length; i++) {
